@@ -35,28 +35,5 @@ export const Time = <TMessage extends IMessage = IMessage>({
   timeFormat = TIME_FORMAT,
   timeTextStyle,
 }: TimeProps<TMessage>) => {
-  const { getLocale } = useChatContext()
-
-  const formattedTime = useMemo(() => {
-    if (!currentMessage)
-      return null
-
-    return dayjs(currentMessage.createdAt).locale(getLocale()).format(timeFormat)
-  }, [currentMessage, getLocale, timeFormat])
-
-  if (!currentMessage)
-    return null
-
-  return (
-    <View style={containerStyle?.[position]}>
-      <Text
-        style={[
-          getStyleWithPosition(styles, 'text', position),
-          timeTextStyle?.[position],
-        ]}
-      >
-        {formattedTime}
-      </Text>
-    </View>
-  )
+    throw new Error("STUB");
 }

@@ -30,56 +30,7 @@ export function Actions ({
   onPressActionButton,
   buttonStyle,
 }: ActionsProps) {
-  const { actionSheet } = useChatContext()
-
-  const handlePress = useCallback(() => {
-    if (onPressActionButton) {
-      onPressActionButton()
-      return
-    }
-
-    if (!actions?.length)
-      return
-
-    const titles = actions.map(item => item.title)
-
-    actionSheet().showActionSheetWithOptions(
-      {
-        options: titles,
-        cancelButtonIndex: titles.length - 1,
-        tintColor: actionSheetOptionTintColor,
-      },
-      (buttonIndex?: number) => {
-        if (buttonIndex === undefined)
-          return
-
-        const item = actions[buttonIndex]
-        item.action?.()
-      }
-    )
-  }, [actionSheet, actions, actionSheetOptionTintColor, onPressActionButton])
-
-  const renderIcon = useCallback(() => {
-    if (icon)
-      return icon()
-
-    return (
-      <View style={[stylesCommon.centerItems, styles.wrapper, wrapperStyle]}>
-        <Text style={[styles.iconText, iconTextStyle]}>{'+'}</Text>
-      </View>
-    )
-  }, [icon, iconTextStyle, wrapperStyle])
-
-  return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        onPress={handlePress}
-        style={[styles.button, buttonStyle]}
-      >
-        {renderIcon()}
-      </TouchableOpacity>
-    </View>
-  )
+    throw new Error("STUB");
 }
 
 const styles = StyleSheet.create({

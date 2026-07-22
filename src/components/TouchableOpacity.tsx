@@ -19,55 +19,7 @@ export const TouchableOpacity: React.FC<TouchableOpacityProps> = ({
   onPress,
   ...rest
 }) => {
-  const opacity = useSharedValue(1)
-  const isAnimationInFinished = useSharedValue(false)
-
-  const handlePressIn = useCallback(() => {
-    opacity.value = withTiming(activeOpacity, { duration: 150 }, () => {
-      isAnimationInFinished.value = true
-    })
-  }, [activeOpacity, opacity, isAnimationInFinished])
-
-  const handlePressOut = useCallback(() => {
-    setTimeout(() => {
-      'worklet'
-
-      opacity.value = withTiming(1, { duration: 150 })
-      isAnimationInFinished.value = false
-    }, isAnimationInFinished.value ? 0 : 150)
-  }, [opacity, isAnimationInFinished])
-
-  const handleActiveStateChange = useCallback((isActive: boolean) => {
-    if (isActive)
-      handlePressIn()
-    else
-      handlePressOut()
-  }, [handlePressIn, handlePressOut])
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    opacity: opacity.value,
-  }))
-
-  const handlePress = useCallback(() => {
-    onPress?.()
-  }, [onPress])
-
-  return (
-    <BaseButton
-      {...rest}
-      onPress={handlePress}
-      onActiveStateChange={handleActiveStateChange}
-    >
-      <Animated.View
-        // The content view must not capture touches, otherwise it swallows the
-        // BaseButton's press on Android (see #2714). pointerEvents in style is
-        // the non-deprecated form on RN's New Architecture.
-        style={[style, animatedStyle, styles.content]}
-      >
-        {children}
-      </Animated.View>
-    </BaseButton>
-  )
+    throw new Error("STUB");
 }
 
 const styles = StyleSheet.create({

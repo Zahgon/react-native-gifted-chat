@@ -8,61 +8,7 @@ import { MessageReactionsDisplayProps } from './types'
 export const MessageReactions = <TMessage extends IMessage = IMessage>(
   props: MessageReactionsDisplayProps<TMessage>
 ): React.ReactElement | null => {
-  const {
-    reactions,
-    currentUserId,
-    position,
-    onReactionPress,
-    containerStyle,
-    reactionStyle,
-    reactionActiveStyle,
-    reactionTextStyle,
-    reactionCountStyle,
-  } = props
-
-  if (!reactions || reactions.length === 0)
-    return null
-
-  return (
-    <View
-      style={[
-        styles.container,
-        position === 'right' ? styles.containerRight : styles.containerLeft,
-        containerStyle,
-      ]}
-    >
-      {reactions.map(reaction => {
-        const isActive = currentUserId != null && reaction.userIds.includes(currentUserId)
-        const count = reaction.userIds.length
-
-        return (
-          <Pressable
-            key={reaction.emoji}
-            onPress={() => onReactionPress?.(reaction.emoji)}
-            style={({ pressed }) => [
-              styles.pill,
-              isActive ? styles.pillActive : styles.pillInactive,
-              isActive ? reactionActiveStyle : reactionStyle,
-              pressed && styles.pillPressed,
-            ]}
-          >
-            <Text style={[styles.emoji, reactionTextStyle]}>{reaction.emoji}</Text>
-            {count > 1 && (
-              <Text
-                style={[
-                  styles.count,
-                  isActive && styles.countActive,
-                  reactionCountStyle,
-                ]}
-              >
-                {count}
-              </Text>
-            )}
-          </Pressable>
-        )
-      })}
-    </View>
-  )
+    throw new Error("STUB");
 }
 
 const styles = StyleSheet.create({

@@ -24,54 +24,7 @@ export function ReplyPreview ({
   clearButtonStyle,
   clearButtonTextStyle,
 }: ReplyPreviewProps) {
-  const colorScheme = useColorScheme()
-
-  const containerStyles = useMemo(() => [
-    styles.container,
-    colorScheme === 'dark' && styles.container_dark,
-    containerStyle,
-  ], [colorScheme, containerStyle])
-
-  const usernameStyles = useMemo(() => [
-    styles.username,
-    colorScheme === 'dark' && styles.username_dark,
-    usernameStyle,
-  ], [colorScheme, usernameStyle])
-
-  const textStyles = useMemo(() => [
-    styles.text,
-    colorScheme === 'dark' && styles.text_dark,
-    textStyle,
-  ], [colorScheme, textStyle])
-
-  return (
-    <View style={containerStyles}>
-      <View style={styles.border} />
-      <View style={styles.content}>
-        <Text
-          style={usernameStyles}
-          numberOfLines={1}
-        >
-          {replyMessage.user?.name || 'User'}
-        </Text>
-        <Text
-          style={textStyles}
-          numberOfLines={1}
-        >
-          {replyMessage.text || (replyMessage.image ? 'Photo' : (replyMessage.audio ? 'Audio' : 'Message'))}
-        </Text>
-      </View>
-      <Pressable
-        onPress={onClearReply}
-        style={[styles.clearButton, clearButtonStyle]}
-        hitSlop={8}
-      >
-        <Text style={[styles.clearButtonText, clearButtonTextStyle]}>
-          {'✕'}
-        </Text>
-      </Pressable>
-    </View>
-  )
+    throw new Error("STUB");
 }
 
 const styles = StyleSheet.create({

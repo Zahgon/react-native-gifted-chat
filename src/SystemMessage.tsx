@@ -28,27 +28,7 @@ export function SystemMessage<TMessage extends IMessage> ({
   messageTextProps,
   children,
 }: SystemMessageProps<TMessage>) {
-  if (currentMessage == null)
-    return null
-
-  return (
-    <View style={[stylesCommon.fill, styles.wrapper]}>
-      <View style={[styles.container, containerStyle]}>
-        {
-          !!currentMessage.text && (
-            <MessageText
-              currentMessage={currentMessage}
-              customTextStyle={[styles.text, textStyle]}
-              position='left'
-              containerStyle={{ left: [styles.messageContainer, messageContainerStyle] }}
-              {...messageTextProps}
-            />
-          )
-        }
-        {children}
-      </View>
-    </View>
-  )
+    throw new Error("STUB");
 }
 
 const styles = StyleSheet.create({

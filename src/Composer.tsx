@@ -22,69 +22,7 @@ export function Composer ({
   text = '',
   textInputProps,
 }: ComposerProps): React.ReactElement {
-  const colorScheme = useColorScheme()
-  const isDark = colorScheme === 'dark'
-
-  const placeholder = textInputProps?.placeholder ?? 'Type a message...'
-
-  const minHeight = useMemo(() =>
-    Platform.select({
-      web: styles.textInput.lineHeight + styles.textInput.paddingTop + styles.textInput.paddingBottom,
-      default: undefined,
-    })
-  , [])
-
-  const [height, setHeight] = useState<number | undefined>(minHeight)
-
-  // Reset the (web) auto-grown height back to its minimum once the text is
-  // cleared, e.g. after sending. Without this the composer stays expanded at
-  // the height of the previously sent multiline message. (#2716)
-  useEffect(() => {
-    if (Platform.OS === 'web' && text.length === 0)
-      setHeight(minHeight)
-  }, [text, minHeight])
-
-  const handleContentSizeChange = useMemo(() => {
-    if (Platform.OS === 'web')
-      return (e: TextInputContentSizeChangeEvent) => {
-        const contentHeight = e.nativeEvent.contentSize.height
-        setHeight(Math.max(minHeight ?? 0, contentHeight))
-      }
-
-    return undefined
-  }, [minHeight])
-
-  const handleChange = useCallback((event: TextInputChangeEvent) => {
-    if (Platform.OS === 'web')
-      // Reset height to 0 to get the correct scrollHeight
-      requestAnimationFrame(() => {
-        // @ts-expect-error - web-specific code
-        event.nativeEvent.target.style.height = '0px'
-        // @ts-expect-error - web-specific code
-        event.nativeEvent.target.style.height = `${event.nativeEvent.target.scrollHeight}px`
-      })
-  }, [])
-
-  return (
-    <View style={stylesCommon.fill}>
-      <TextInput
-        testID={placeholder}
-        accessible
-        accessibilityLabel={placeholder}
-        placeholderTextColor={textInputProps?.placeholderTextColor ?? (isDark ? '#888' : Color.defaultColor)}
-        value={text}
-        enablesReturnKeyAutomatically
-        underlineColorAndroid='transparent'
-        keyboardAppearance={isDark ? 'dark' : 'default'}
-        multiline
-        placeholder={placeholder}
-        onContentSizeChange={handleContentSizeChange}
-        onChange={handleChange}
-        {...textInputProps}
-        style={[getColorSchemeStyle(styles, 'textInput', colorScheme), stylesWeb.textInput, { height }, textInputProps?.style]}
-      />
-    </View>
-  )
+    throw new Error("STUB");
 }
 
 const styles = StyleSheet.create({

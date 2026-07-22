@@ -20,10 +20,9 @@ export function useDayDebugOverlay (select: () => string, deps: unknown[]): Reac
   const [text, setText] = useState('')
 
   useAnimatedReaction(
-    () => (DAY_DEBUG.overlay ? select() : ''),
+    () => { throw new Error("STUB"); },
     value => {
-      if (value)
-        runOnJS(setText)(value)
+        throw new Error("STUB");
     },
     deps
   )

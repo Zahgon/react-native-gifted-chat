@@ -44,7 +44,7 @@ function GiftedChat<TMessage extends IMessage = IMessage> (
     // "random" function from here: https://stackoverflow.com/a/8084248/3452513
     // we do not use uuid since it would add extra native dependency (https://www.npmjs.com/package/react-native-get-random-values)
     // lib's user can decide which algorithm to use and pass it as a prop
-    messageIdGenerator = () => (Math.random() + 1).toString(36).substring(7),
+    messageIdGenerator = () => { throw new Error("STUB"); },
 
     user = {},
     onSend,
@@ -77,17 +77,17 @@ function GiftedChat<TMessage extends IMessage = IMessage> (
   const insets = useSafeAreaInsets()
 
   const messagesContainerRef = useMemo(
-    () => props.messagesContainerRef || createRef<AnimatedList<TMessage>>(),
+    () => { throw new Error("STUB"); },
     [props.messagesContainerRef]
   ) as RefObject<AnimatedList<TMessage>>
 
   const textInputRef = useMemo(
-    () => props.textInputRef || createRef<TextInput>(),
+    () => { throw new Error("STUB"); },
     [props.textInputRef]
   )
 
   const [isInitialized, setIsInitialized] = useState<boolean>(false)
-  const [text, setText] = useState<string | undefined>(() => props.text || '')
+  const [text, setText] = useState<string | undefined>(() => { throw new Error("STUB"); })
   const [internalReplyMessage, setInternalReplyMessage] = useState<ReplyMessage | null>(null)
 
   // Use controlled or uncontrolled reply state
@@ -95,82 +95,31 @@ function GiftedChat<TMessage extends IMessage = IMessage> (
 
   const getTextFromProp = useCallback(
     (fallback: string) => {
-      if (props.text === undefined)
-        return fallback
-
-      return props.text
-    },
+          throw new Error("STUB");
+      },
     [props.text]
   )
 
   const scrollToBottom = useCallback(
     (isAnimated = true) => {
-      if (!messagesContainerRef?.current)
-        return
-
-      if (isInverted) {
-        messagesContainerRef.current.scrollToOffset({
-          offset: 0,
-          animated: isAnimated,
-        })
-        return
-      }
-
-      messagesContainerRef.current.scrollToEnd({ animated: isAnimated })
-    },
+          throw new Error("STUB");
+      },
     [isInverted, messagesContainerRef]
   )
 
   const handleSwipeToReply = useCallback(
     (message: TMessage) => {
-      if (replyMessageProp === undefined)
-        // Uncontrolled mode: manage state internally
-        setInternalReplyMessage({
-          _id: message._id,
-          text: message.text,
-          user: message.user,
-          image: message.image,
-          audio: message.audio,
-        })
-
-      onSwipeToReply?.(message)
-    },
+          throw new Error("STUB");
+      },
     [replyMessageProp, onSwipeToReply]
   )
 
   const clearReply = useCallback(() => {
-    if (replyMessageProp === undefined)
-      // Uncontrolled mode: manage state internally
-      setInternalReplyMessage(null)
-
-    onClearReply?.()
+      throw new Error("STUB");
   }, [replyMessageProp, onClearReply])
 
   const renderMessages = useMemo(() => {
-    if (!isInitialized)
-      return null
-
-    const { messagesContainerStyle, ...messagesContainerProps } = props
-
-    return (
-      <View style={[stylesCommon.fill, messagesContainerStyle]}>
-        <MessagesContainer<TMessage>
-          {...messagesContainerProps}
-          isInverted={isInverted}
-          messages={messages}
-          forwardRef={messagesContainerRef}
-          isTyping={isTyping}
-          reply={{
-            ...reply,
-            swipe: reply?.swipe ? {
-              ...reply.swipe,
-              onSwipe: handleSwipeToReply,
-            } : undefined,
-          }}
-        />
-        {renderComponentOrElement(renderChatFooter, {})}
-      </View>
-    )
+      throw new Error("STUB");
   }, [
     isInitialized,
     isTyping,
@@ -184,15 +133,11 @@ function GiftedChat<TMessage extends IMessage = IMessage> (
   ])
 
   const notifyInputTextReset = useCallback(() => {
-    props.textInputProps?.onChangeText?.('')
+      throw new Error("STUB");
   }, [props.textInputProps])
 
   const resetInputToolbar = useCallback(() => {
-    textInputRef.current?.clear()
-
-    notifyInputTextReset()
-
-    setText(getTextFromProp(''))
+      throw new Error("STUB");
   }, [
     getTextFromProp,
     textInputRef,
@@ -201,87 +146,27 @@ function GiftedChat<TMessage extends IMessage = IMessage> (
 
   const _onSend = useCallback(
     (messages: TMessage[] = [], shouldResetInputToolbar = false) => {
-      if (!Array.isArray(messages))
-        messages = [messages]
-
-      const newMessages: TMessage[] = messages.map(message => {
-        return {
-          ...message,
-          user: user!,
-          createdAt: new Date(),
-          _id: messageIdGenerator?.(),
-          // Attach reply message if exists
-          ...(replyMessage ? { replyMessage } : {}),
-        }
-      })
-
-      if (shouldResetInputToolbar === true)
-        resetInputToolbar()
-
-      // Clear reply after sending
-      clearReply()
-
-      onSend?.(newMessages)
-
-      setTimeout(() => scrollToBottom(), 10)
-    },
+          throw new Error("STUB");
+      },
     [messageIdGenerator, onSend, user, resetInputToolbar, scrollToBottom, replyMessage, clearReply]
   )
 
   const _onChangeText = useCallback(
     (text: string) => {
-      props.textInputProps?.onChangeText?.(text)
-
-      // Only set state if it's not being overridden by a prop.
-      if (props.text === undefined)
-        setText(text)
-    },
+          throw new Error("STUB");
+      },
     [props.text, props.textInputProps]
   )
 
   const onInitialLayoutViewLayout = useCallback(
     (e: LayoutChangeEvent) => {
-      if (isInitialized)
-        return
-
-      const { layout } = e.nativeEvent
-
-      if (layout.height <= 0)
-        return
-
-      notifyInputTextReset()
-
-      setIsInitialized(true)
-      setText(getTextFromProp(initialText))
-    },
+          throw new Error("STUB");
+      },
     [isInitialized, initialText, notifyInputTextReset, getTextFromProp]
   )
 
   const inputToolbarFragment = useMemo(() => {
-    if (!isInitialized)
-      return null
-
-    const inputToolbarProps = {
-      ...props,
-      text: getTextFromProp(text!),
-      onSend: _onSend,
-      textInputProps: {
-        ...textInputProps,
-        onChangeText: _onChangeText,
-        ref: textInputRef,
-      },
-      // Reply preview props
-      replyMessage,
-      onClearReply: clearReply,
-      renderReplyPreview,
-      replyPreviewContainerStyle,
-      replyPreviewTextStyle,
-    }
-
-    if (renderInputToolbar)
-      return renderComponentOrElement(renderInputToolbar, inputToolbarProps)
-
-    return <InputToolbar {...inputToolbarProps} />
+      throw new Error("STUB");
   }, [
     isInitialized,
     _onSend,
@@ -300,22 +185,12 @@ function GiftedChat<TMessage extends IMessage = IMessage> (
   ])
 
   const contextValues = useMemo(
-    () => ({
-      actionSheet:
-        actionSheet ||
-        (() => ({
-          showActionSheetWithOptions:
-            actionSheetRef.current!.showActionSheetWithOptions,
-        })),
-      getLocale: () => locale,
-      getColorScheme: () => colorScheme,
-    }),
+    () => { throw new Error("STUB"); },
     [actionSheet, locale, colorScheme]
   )
 
   useEffect(() => {
-    if (props.text != null)
-      setText(props.text)
+      throw new Error("STUB");
   }, [props.text])
 
   return (
@@ -377,12 +252,7 @@ GiftedChatWrapper.append = <TMessage extends IMessage>(
   messages: TMessage[],
   isInverted = true
 ) => {
-  if (!Array.isArray(messages))
-    messages = [messages]
-
-  return isInverted
-    ? messages.concat(currentMessages)
-    : currentMessages.concat(messages)
+    throw new Error("STUB");
 }
 
 GiftedChatWrapper.prepend = <TMessage extends IMessage>(
@@ -390,12 +260,7 @@ GiftedChatWrapper.prepend = <TMessage extends IMessage>(
   messages: TMessage[],
   isInverted = true
 ) => {
-  if (!Array.isArray(messages))
-    messages = [messages]
-
-  return isInverted
-    ? currentMessages.concat(messages)
-    : messages.concat(currentMessages)
+    throw new Error("STUB");
 }
 
 export {

@@ -13,16 +13,5 @@ const styles = StyleSheet.create({
 })
 
 export function MessageAudio () {
-  const content = useMemo(() => (
-    <View style={styles.container}>
-      <Text style={styles.text}>
-        {'Audio is not implemented by GiftedChat.'}
-      </Text>
-      <Text style={styles.text}>
-        {'\nYou need to provide your own implementation by using renderMessageAudio prop.'}
-      </Text>
-    </View>
-  ), [])
-
-  return content
+    throw new Error("STUB");
 }

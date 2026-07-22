@@ -35,75 +35,7 @@ export function MessageReply<TMessage extends IMessage = IMessage> ({
   textStyle,
   onPress: onPressProp,
 }: MessageReplyProps<TMessage>) {
-  const handlePress = useCallback(() => {
-    if (!onPressProp || !currentMessage.replyMessage)
-      return
-
-    onPressProp(currentMessage.replyMessage)
-  }, [onPressProp, currentMessage.replyMessage])
-
-  const containerStyleMemo = useMemo(() => [
-    styles.container,
-    getStyleWithPosition(styles, 'container', position),
-    containerStyle?.[position],
-  ], [position, containerStyle])
-
-  const contentContainerStyleMemo = useMemo(() => [
-    styles.contentContainer,
-    contentContainerStyle?.[position],
-  ], [position, contentContainerStyle])
-
-  const imageStyleMemo = useMemo(() => [
-    styles.image,
-    imageStyle,
-  ], [imageStyle])
-
-  const usernameStyleMemo = useMemo(() => [
-    styles.username,
-    getStyleWithPosition(styles, 'username', position),
-    usernameStyle,
-  ], [position, usernameStyle])
-
-  const textStyleMemo = useMemo(() => [
-    styles.text,
-    getStyleWithPosition(styles, 'text', position),
-    textStyle,
-  ], [position, textStyle])
-
-  if (!currentMessage.replyMessage)
-    return null
-
-  const { replyMessage } = currentMessage
-
-  return (
-    <Pressable
-      onPress={handlePress}
-      style={containerStyleMemo}
-    >
-      <View style={contentContainerStyleMemo}>
-        {replyMessage.image && (
-          <Image
-            source={{ uri: replyMessage.image }}
-            style={imageStyleMemo}
-          />
-        )}
-        <View style={styles.textContainer}>
-          <Text
-            style={usernameStyleMemo}
-            numberOfLines={1}
-          >
-            {replyMessage.user?.name || 'User'}
-          </Text>
-          <Text
-            numberOfLines={1}
-            style={textStyleMemo}
-          >
-            {replyMessage.text || (replyMessage.image ? 'Photo' : (replyMessage.audio ? 'Audio' : 'Message'))}
-          </Text>
-        </View>
-      </View>
-    </Pressable>
-  )
+    throw new Error("STUB");
 }
 
 const styles = StyleSheet.create({

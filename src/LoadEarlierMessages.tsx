@@ -36,34 +36,7 @@ export const LoadEarlierMessages: React.FC<LoadEarlierMessagesProps> = ({
   activityIndicatorSize = 'small',
   activityIndicatorStyle,
 }) => {
-  return (
-    <TouchableOpacity
-      style={[styles.container, containerStyle]}
-      onPress={onPress}
-      enabled={!isLoading}
-      accessibilityRole='button'
-    >
-      <View style={[stylesCommon.centerItems, styles.wrapper, wrapperStyle]}>
-        {
-          isLoading
-            ? (
-              <ActivityIndicator
-                color={activityIndicatorColor}
-                size={activityIndicatorSize}
-                style={[styles.activityIndicator, activityIndicatorStyle]}
-              />
-            )
-            : (
-              <View style={styles.textContainer}>
-                <Text style={[styles.text, textStyle]}>
-                  {label}
-                </Text>
-              </View>
-            )
-        }
-      </View>
-    </TouchableOpacity>
-  )
+    throw new Error("STUB");
 }
 
 const styles = StyleSheet.create({

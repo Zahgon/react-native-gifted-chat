@@ -52,11 +52,9 @@ export interface QuickRepliesProps<TMessage extends IMessage = IMessage> {
   renderQuickReplySend?(): React.ReactNode
 }
 
-const sameReply = (currentReply: Reply) => (reply: Reply) =>
-  currentReply.value === reply.value
+const sameReply = (currentReply: Reply) => { throw new Error("STUB"); }
 
-const diffReply = (currentReply: Reply) => (reply: Reply) =>
-  currentReply.value !== reply.value
+const diffReply = (currentReply: Reply) => { throw new Error("STUB"); }
 
 export function QuickReplies ({
   currentMessage,
@@ -69,112 +67,5 @@ export function QuickReplies ({
   sendText = 'Send',
   renderQuickReplySend,
 }: QuickRepliesProps<IMessage>) {
-  const { type } = currentMessage!.quickReplies!
-  const [replies, setReplies] = useState<Reply[]>([])
-
-  const shouldComponentDisplay = useMemo(() => {
-    const hasReplies = !!currentMessage && !!currentMessage!.quickReplies
-    const hasNext = !!nextMessage && !!nextMessage!._id
-    const keepIt = currentMessage!.quickReplies!.keepIt
-
-    if (hasReplies && !hasNext)
-      return true
-
-    if (hasReplies && hasNext && keepIt)
-      return true
-
-    return false
-  }, [currentMessage, nextMessage])
-
-  const handleSend = useCallback((repliesData: Reply[]) => () => {
-    onQuickReply?.(
-      repliesData.map((reply: Reply) => ({
-        ...reply,
-        messageId: currentMessage!._id,
-      }))
-    )
-  }, [onQuickReply, currentMessage])
-
-  const handlePress = useCallback(
-    (reply: Reply) => () => {
-      if (currentMessage) {
-        const { type } = currentMessage.quickReplies!
-        switch (type) {
-          case 'radio': {
-            handleSend([reply])()
-            return
-          }
-          case 'checkbox': {
-            if (replies.find(sameReply(reply)))
-              setReplies(replies.filter(diffReply(reply)))
-            else
-              setReplies([...replies, reply])
-
-            return
-          }
-          default: {
-            warning(`onQuickReply unknown type: ${type}`)
-          }
-        }
-      }
-    },
-    [replies, currentMessage, handleSend]
-  )
-
-  const renderSendButton = useMemo(() => {
-    if (!replies.length)
-      return null
-
-    return (
-      <TouchableOpacity
-        style={[stylesCommon.centerItems, styles.quickReply, styles.sendLink]}
-        onPress={handleSend(replies)}
-      >
-        {renderQuickReplySend?.() || (
-          <Text style={styles.sendLinkText}>{sendText}</Text>
-        )}
-      </TouchableOpacity>
-    )
-  }, [replies, handleSend, renderQuickReplySend, sendText])
-
-  if (!shouldComponentDisplay)
-    return null
-
-  return (
-    <View style={[styles.container, quickReplyContainerStyle]}>
-      {currentMessage!.quickReplies!.values.map(
-        (reply: Reply, index: number) => {
-          const selected =
-            type === 'checkbox' && replies.find(sameReply(reply))
-
-          return (
-            <TouchableOpacity
-              onPress={handlePress(reply)}
-              style={[
-                stylesCommon.centerItems,
-                styles.quickReply,
-                quickReplyStyle,
-                { borderColor: color },
-                selected && { backgroundColor: color },
-              ]}
-              key={`${reply.value}-${index}`}
-            >
-              <Text
-                numberOfLines={10}
-                ellipsizeMode='tail'
-                style={[
-                  styles.quickReplyText,
-                  { color: selected ? Color.white : color },
-                  quickReplyTextStyle,
-                ]}
-              >
-                {reply.title}
-              </Text>
-            </TouchableOpacity>
-          )
-        }
-      )}
-      {renderSendButton}
-    </View>
-  )
+    throw new Error("STUB");
 }

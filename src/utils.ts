@@ -81,26 +81,7 @@ function processCallbackArguments (args: unknown[]): unknown[] {
 }
 
 export function useCallbackDebounced<T extends (...args: any[]) => any>(callbackFunc: T, deps: React.DependencyList = [], time: number): (...args: Parameters<T>) => void {
-  const timeoutId = useRef<ReturnType<typeof setTimeout>>(undefined)
-
-  const savedFunc = useCallback((...args: Parameters<T>) => {
-    const params = processCallbackArguments(args)
-    if (timeoutId.current)
-      clearTimeout(timeoutId.current)
-    timeoutId.current = setTimeout(() => {
-      callbackFunc(...params as Parameters<T>)
-    }, time)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [callbackFunc, time, ...deps])
-
-  useEffect(() => {
-    return () => {
-      if (timeoutId.current)
-        clearTimeout(timeoutId.current)
-    }
-  }, [])
-
-  return savedFunc
+    throw new Error("STUB");
 }
 
 export function useCallbackThrottled<T extends (...args: any[]) => any>(callbackFunc: T, deps: React.DependencyList = [], time: number): (...args: Parameters<T>) => void {
@@ -109,30 +90,11 @@ export function useCallbackThrottled<T extends (...args: any[]) => any>(callback
 
   // we use function instead of arrow to access arguments object
   const savedFunc = useCallback((...args: Parameters<T>) => {
-    const params = processCallbackArguments(args)
-
-    const now = Date.now()
-    const timeSinceLastExecution = now - lastExecution.current
-
-    if (timeSinceLastExecution >= time) {
-      // Execute immediately if enough time has passed
-      lastExecution.current = now
-      callbackFunc(...params as Parameters<T>)
-    } else {
-      // Schedule execution for the remaining time
-      clearTimeout(timeoutId.current)
-      timeoutId.current = setTimeout(() => {
-        lastExecution.current = Date.now()
-        callbackFunc(...params as Parameters<T>)
-      }, time - timeSinceLastExecution)
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+      throw new Error("STUB");
   }, [callbackFunc, time, ...deps])
 
   useEffect(() => {
-    return () => {
-      clearTimeout(timeoutId.current)
-    }
+      throw new Error("STUB");
   }, [])
 
   return savedFunc

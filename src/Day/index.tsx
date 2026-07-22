@@ -24,37 +24,5 @@ export function Day ({
   wrapperStyle,
   textProps,
 }: DayProps) {
-  const { getLocale } = useChatContext()
-
-  const dateStr = useMemo(() => {
-    if (createdAt == null)
-      return null
-
-    const now = dayjs().startOf('day')
-    const date = dayjs(createdAt).locale(getLocale()).startOf('day')
-
-    if (!now.isSame(date, 'year'))
-      return date.format('D MMMM YYYY')
-
-    if (now.diff(date, 'days') < 1)
-      return date.calendar(now, {
-        sameDay: '[Today]',
-        ...dateFormatCalendar,
-      })
-
-    return date.format(dateFormat)
-  }, [createdAt, dateFormat, getLocale, dateFormatCalendar])
-
-  if (!dateStr)
-    return null
-
-  return (
-    <View style={[stylesCommon.centerItems, styles.container, containerStyle]}>
-      <View style={[styles.wrapper, wrapperStyle]}>
-        <Text {...textProps} style={[styles.text, textProps?.style]}>
-          {dateStr}
-        </Text>
-      </View>
-    </View>
-  )
+    throw new Error("STUB");
 }

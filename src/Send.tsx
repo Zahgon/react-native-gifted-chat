@@ -42,55 +42,7 @@ export const Send = <TMessage extends IMessage = IMessage>({
   sendButtonProps,
   onSend,
 }: SendProps<TMessage>) => {
-  const colorScheme = useColorScheme()
-  const opacity = useSharedValue(0)
-
-  const handleOnPress = useCallback(() => {
-    const trimmedText = text?.trim() ?? ''
-    const message = { text: trimmedText } as Partial<TMessage>
-
-    if (onSend && (trimmedText.length || isTextOptional))
-      onSend(message, true)
-  }, [text, onSend, isTextOptional])
-
-  const isVisible = useMemo(
-    () => isSendButtonAlwaysVisible || !!text?.trim().length,
-    [isSendButtonAlwaysVisible, text]
-  )
-
-  useEffect(() => {
-    opacity.value = withTiming(isVisible ? 1 : 0, { duration: 200 })
-  }, [isVisible, opacity])
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    opacity: opacity.value,
-  }), [opacity])
-
-  return (
-    <Animated.View style={[styles.container, containerStyle, animatedStyle]} pointerEvents={isVisible ? 'auto' : 'none'}>
-      <TouchableOpacity
-        testID={TEST_ID.SEND_TOUCHABLE}
-        style={styles.touchable}
-        onPress={handleOnPress}
-        accessible
-        accessibilityLabel='send'
-        accessibilityRole='button'
-        {...sendButtonProps}
-      >
-        {
-          children ||
-          <Text
-            style={[
-              getColorSchemeStyle(styles, 'text', colorScheme),
-              textStyle,
-            ]}
-          >
-            {label}
-          </Text>
-        }
-      </TouchableOpacity>
-    </Animated.View>
-  )
+    throw new Error("STUB");
 }
 
 const styles = StyleSheet.create({

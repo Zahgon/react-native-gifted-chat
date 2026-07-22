@@ -17,29 +17,17 @@ export function useScrollGatedOpacity (isScrollActive: { value: boolean }) {
   const fadeOutTimeoutId = useSharedValue<ReturnType<typeof setTimeout> | undefined>(undefined)
 
   const fadeOut = useCallback(() => {
-    'worklet'
-
-    opacity.value = withTiming(0, { duration: FADE_OUT_DURATION * DAY_DEBUG.timeScale })
+      throw new Error("STUB");
   }, [opacity])
 
   const scheduleFadeOut = useCallback(() => {
-    clearTimeout(fadeOutTimeoutId.value)
-
-    fadeOutTimeoutId.value = setTimeout(fadeOut, FADE_OUT_DELAY * DAY_DEBUG.timeScale)
+      throw new Error("STUB");
   }, [fadeOut, fadeOutTimeoutId])
 
   useAnimatedReaction(
-    () => isScrollActive.value,
+    () => { throw new Error("STUB"); },
     (active, prevActive) => {
-      if (active === prevActive)
-        return
-
-      if (active) {
-        clearTimeout(fadeOutTimeoutId.value)
-        opacity.value = withTiming(1, { duration: FADE_IN_DURATION * DAY_DEBUG.timeScale })
-      } else {
-        runOnJS(scheduleFadeOut)()
-      }
+        throw new Error("STUB");
     },
     [isScrollActive, scheduleFadeOut, fadeOutTimeoutId]
   )

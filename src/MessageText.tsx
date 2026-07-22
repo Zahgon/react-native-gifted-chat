@@ -52,41 +52,7 @@ export function MessageText<TMessage extends IMessage>({
   mentionUrl,
   stripPrefix = false,
 }: MessageTextProps<TMessage>) {
-  const linkStyle = useMemo(() => StyleSheet.flatten([
-    styles.link,
-    linkStyleProp?.[position],
-  ]), [position, linkStyleProp])
-
-  const style = useMemo(() => [
-    styles[`text_${position}`],
-    textStyle?.[position],
-    customTextStyle,
-  ], [position, textStyle, customTextStyle])
-
-  const handlePress = useCallback((url: string, type: LinkType) => {
-    onPressProp?.(currentMessage, url, type)
-  }, [onPressProp, currentMessage])
-
-  return (
-    <View style={[styles.container, containerStyle?.[position]]}>
-      <LinkParser
-        text={currentMessage!.text}
-        matchers={matchers}
-        email={email}
-        phone={phone}
-        url={url}
-        hashtag={hashtag}
-        mention={mention}
-        hashtagUrl={hashtagUrl}
-        mentionUrl={mentionUrl}
-        stripPrefix={stripPrefix}
-        linkStyle={linkStyle}
-        textStyle={style}
-        onPress={onPressProp ? handlePress : undefined}
-        TextComponent={Text}
-      />
-    </View>
-  )
+    throw new Error("STUB");
 }
 
 const styles = StyleSheet.create({
